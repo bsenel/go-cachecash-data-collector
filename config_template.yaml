@@ -1,0 +1,4 @@
+es_username: "Put username"
+es_password : "Put password"
+es_api: "Put API endpoint of ElasticSearch"
+jaeger_api: "Put API endpoint of Jaeger"
