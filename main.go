@@ -161,10 +161,10 @@ func main() {
 					setHeader(f, "", title, columnChunk, (len(hitsChild)+4)*2+i+2, 0)
 					setHeader(f, "", title, columnOrderedChunk, (len(hitsChild)+4)*3+i+2, 0)
 				}
-				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", column, i+3), duration.String())
-				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", columnDecrypt, len(hitsChild)+4+i+3), duration.String())
-				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", columnChunk, (len(hitsChild)+4)*2+i+3), duration.String())
-				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", columnOrderedChunk, (len(hitsChild)+4)*3+i+3), duration.String())
+				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", column, i+3), duration.Seconds())
+				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", columnDecrypt, len(hitsChild)+4+i+3), duration.Seconds())
+				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", columnChunk, (len(hitsChild)+4)*2+i+3), duration.Seconds())
+				f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", columnOrderedChunk, (len(hitsChild)+4)*3+i+3), duration.Seconds())
 				columnNumber++
 				columnDecryptNumber++
 				columnChunkNumber++
