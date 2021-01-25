@@ -192,18 +192,20 @@ func main() {
 				for _, refRowInt := range references {
 					refRow := refRowInt.(map[string]interface{})
 					if refRow["refType"].(string) == "CHILD_OF" {
-						groupedChunkList[refRow["spanID"].(string)].Puzzle = duration.Milliseconds()
+						if groupedChunkList[refRow["spanID"].(string)] != nil {
+							groupedChunkList[refRow["spanID"].(string)].Puzzle = duration.Milliseconds()
 
-						if handleBundleList[0] == refRow["spanID"].(string) && !ttfbCalculated {
-							if headers {
-								title := "Caches TTFB (ms)"
-								setHeader(f, "", title, column, i+2, 0)
+							if handleBundleList[0] == refRow["spanID"].(string) && !ttfbCalculated {
+								if headers {
+									title := "Caches TTFB (ms)"
+									setHeader(f, "", title, column, i+2, 0)
+								}
+
+								ttfb = int64((spanRow["startTime"].(float64)-ttfbStart)/1000) + duration.Milliseconds()
+								f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", column, i+3), ttfb)
+								ttfbCalculated = true
+								columnNumber++
 							}
-
-							ttfb = int64((spanRow["startTime"].(float64)-ttfbStart)/1000) + duration.Milliseconds()
-							f.SetCellValue("Sheet1", fmt.Sprintf("%s%d", column, i+3), ttfb)
-							ttfbCalculated = true
-							columnNumber++
 						}
 					}
 				}
@@ -212,7 +214,9 @@ func main() {
 				for _, refRowInt := range references {
 					refRow := refRowInt.(map[string]interface{})
 					if refRow["refType"].(string) == "CHILD_OF" {
-						groupedChunkList[refRow["spanID"].(string)].Chunk = append(groupedChunkList[refRow["spanID"].(string)].Chunk, duration.Milliseconds())
+						if groupedChunkList[refRow["spanID"].(string)] != nil {
+							groupedChunkList[refRow["spanID"].(string)].Chunk = append(groupedChunkList[refRow["spanID"].(string)].Chunk, duration.Milliseconds())
+						}
 					}
 				}
 			}
